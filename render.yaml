@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: academy-dashboard
+    runtime: docker
+    repo: https://github.com/sbin-crypto/academy-dashboard
+    branch: main
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: "true"
