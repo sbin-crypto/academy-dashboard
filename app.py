@@ -483,7 +483,7 @@ with tab2:
 # ════════════ TAB 3: Grade ═══════════════════════════════════════
 with tab3:
     st.markdown("### 학년별 등록 분포")
-    gdo = ['중2','중3','고1','고2','고3','졸업생','N수생','반수생','미분류']
+    gdo = ['중2','중3','고1','고2','고3','졸업생','N수생','반수생','예비','미분류']
     cg1, cg2 = st.columns(2)
     gc = filtered['학년'].value_counts().reset_index(); gc.columns=['학년','등록수']
     gc['o'] = gc['학년'].apply(lambda x: gdo.index(x) if x in gdo else 99)
@@ -608,8 +608,9 @@ with tab5:
 with tab6:
     st.markdown("### 지역별 등록 분석")
     region_data = filtered[filtered['지역'] != '미분류']
+    pct = len(region_data)/len(filtered)*100 if len(filtered) > 0 else 0
     st.caption(f"지역 분류 완료: {len(region_data):,}건 / 전체 {len(filtered):,}건 "
-               f"({len(region_data)/len(filtered)*100:.1f}%)")
+               f"({pct:.1f}%)")
 
     cr1, cr2 = st.columns(2)
     with cr1:
@@ -723,7 +724,7 @@ with tab8:
     dcols = ['등록일','학원','학년','프로그램_카테고리','프로그램',
              '등록금액','지역','권역','성별','학기','시즌','담당자']
     st.dataframe(
-        filtered[dcols].sort_values('등록일_parsed', ascending=False),
+        filtered[dcols + ['등록일_parsed']].sort_values('등록일_parsed', ascending=False).drop(columns=['등록일_parsed']),
         use_container_width=True, height=600
     )
     csv = filtered[dcols].to_csv(index=False).encode('utf-8-sig')
