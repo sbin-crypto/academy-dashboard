@@ -476,7 +476,7 @@ with tab2:
     pyp.columns = [str(int(c)) for c in pyp.columns]
     pyp['합계'] = pyp.sum(axis=1)
     pyp = pyp.sort_values('합계', ascending=False)
-    st.dataframe(pyp.style.format('{:.0f}').background_gradient(cmap='Blues', axis=None),
+    st.dataframe(pyp.style.format('{:.0f}'),
                  use_container_width=True, height=450)
 
 
@@ -665,7 +665,7 @@ with tab6:
     ry_piv.columns = [str(int(c)) for c in ry_piv.columns]
     ry_piv['합계'] = ry_piv.sum(axis=1)
     ry_piv = ry_piv.sort_values('합계', ascending=False)
-    st.dataframe(ry_piv.style.format('{:.0f}').background_gradient(cmap='YlGn', axis=None),
+    st.dataframe(ry_piv.style.format('{:.0f}'),
                  use_container_width=True, height=500)
 
 
